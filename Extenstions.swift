@@ -92,3 +92,19 @@ struct ChartVO:Decodable {
         return "\(domain)\(id)"
     }
 }
+
+
+
+        guard ch.id < 5 else {
+            let alert = UIAlertController(title: "알림", message: "세부정보가 없습니다.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "확인", style: .cancel, handler: { [unowned self] action in
+                self.navigationController?.popViewController(animated: true)
+            })
+            
+            alert.addAction(action)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        }
+
+
