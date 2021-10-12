@@ -108,3 +108,38 @@ struct ChartVO:Decodable {
         }
 
 
+    var chartList = [ChartVO]() {
+        didSet {
+            tableVw.reloadData()
+        }
+    }
+
+extension ViewController:UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailVC.instantiate("Main")
+        let vo = chartList[indexPath.row]
+        vc.chart = vo
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ViewController:UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chartList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = MusicCell.instantiate(tableView)
+        let vo = chartList[indexPath.row]
+        cell.updateCell(vo)
+        
+        return cell
+    }
+}
+
+
